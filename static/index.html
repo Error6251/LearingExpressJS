@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TEST</title>
+    <link rel="stylesheet" href="public/style.css" />
+  </head>
+  <body>
+    <h1>LOL</h1>
+    <form onsubmit="return submited(event)">
+      <label for="fname">First number:</label><br />
+      <input type="text" id="fnum" /><br />
+      <label for="lname">Second number:</label><br />
+      <input type="text" id="snum" /><br /><br />
+      <input type="submit" value="Submit" />
+    </form>
+    <dir id="output"></dir>
+  </body>
+  <script>
+    submited = (e) => {
+      e.preventDefault();
+
+      let one = parseInt(document.getElementById("fnum").value);
+      let two = parseInt(document.getElementById("snum").value);
+
+      let answer = one + two;
+      document.getElementById("output").innerHTML = answer;
+
+      fetch(`/post`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          first: one,
+          second: two,
+        }),
+      });
+
+      return false;
+    };
+  </script>
+</html>
